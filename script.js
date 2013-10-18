@@ -4,6 +4,7 @@ function Game(){
 
 function Square(id){
   this.id = id;
+  this.letter;
 }
 
 $(document).ready(function(){
@@ -18,12 +19,16 @@ $(document).ready(function(){
   
   var count = 0;
   $('td').click(function(){
-    count += 1;
-    if(count % 2 === 0) {
-      $(this).html('X');
-    }
-    else {
-      $(this).html('O');
-    }
+    // count += 1;
+    // if(count % 2 === 0) {
+    //   $(this).html('X');
+    // }
+    // else {
+    //   $(this).html('O');
+    // }
+    var cellId = $(this).data('id');
+    console.log(cellId);
+    game.squares[cellId].letter = 'X';
+    console.log(game.squares[cellId].letter);
   })
 });
