@@ -1,4 +1,15 @@
+function Computer(){
+}
 
+Computer.prototype.findEmpty = function(game){
+  for(var i=0;i<game.squares.length;i++) {
+    if(game.squares[i].letter === null) {
+      var ele = $("td[data-id='" + i +"']");
+      $(ele).trigger('click');
+      return;
+    }
+  }
+}
 
 
 function Game(){
@@ -96,25 +107,38 @@ Game.prototype.declare = function(winner){
 
 function Square(id){
   this.id = id;
-  this.letter;
+  this.letter = null;
 }
 
 $(document).ready(function(){
   var game = new Game();
+  var computer = new Computer();
   
   // Initialize game's squares array with table elements
   $('td').each(function(){
     var square = new Square($(this).data('id'));
     game.squares.push(square);
   });
-  
-  // Listen for click on table cell
-  $('td').click(function(){
-    if ($(this).html() === '' && game.over != true) {
-      var cellId = $(this).data('id');
+
+  // Action for each move
+  var markBoard = function(ele, game){
+    if ($(ele).html() === '' && game.over != true) {
+      var cellId = $(ele).data('id');
       game.squares[cellId].letter = game.turn;
       game.playRound();
       console.log(game);
+    }
+  }
+
+  var count = 1;
+  
+  // Listen for click on table cell
+  $('td').click(function(){
+    markBoard(this, game);
+    count += 1;
+    if (count % 2 === 0) {
+      computer.findEmpty(game);
+      count += 2;
     }
   });  
   
