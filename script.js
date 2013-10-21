@@ -27,8 +27,6 @@ Game.prototype.checkRows = function(){
     if (this.squares[i].letter != null &&
         this.squares[i].letter === this.squares[i + 1].letter && 
         this.squares[i + 1].letter === this.squares[i + 2].letter) {
-      console.log('win');
-      this.over = true;
       this.declare(this.squares[i].letter);
     }
   }
@@ -39,19 +37,36 @@ Game.prototype.checkCols = function(){
     if (this.squares[i].letter != null &&
         this.squares[i].letter === this.squares[i + 3].letter && 
         this.squares[i +3].letter === this.squares[i + 6].letter) {
-      console.log('win');
-      this.over = true;
       this.declare(this.squares[i].letter);
     }
   }
 }
 
-// Game.prototype.checkDiags = function(){
-//   for(var i=0; i<3;i=i+2)
-// }
+Game.prototype.checkDiags = function(){
+  for(var i=0; i<3;i=i+2) {
+    
+  }
+}
+
+Game.prototype.checkFullness = function(){
+  var empty = true;
+  for(var i=0;i<this.squares.length;i++) {
+    if (this.squares[i].letter != null) {
+      empty = false;
+    }
+    else {
+      empty = true;
+      return;
+    }
+  }
+  if (empty === false) {
+    this.declare('draw');
+  }
+}
 
 Game.prototype.declare = function(winner){
-  if (winner === null) {
+  this.over = true;
+  if (winner === 'draw') {
     $('.winner p').html('Draw!');
   }
   else {
@@ -82,9 +97,10 @@ $(document).ready(function(){
       game.fillBoard();
       game.changeLetter();
       console.log(game);
-      // game.rowWin();
       game.checkRows();
       game.checkCols();
+      game.checkDiags();
+      game.checkFullness();
     }
   });  
   
