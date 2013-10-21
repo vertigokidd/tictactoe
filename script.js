@@ -108,9 +108,9 @@ $(document).ready(function(){
     game.squares.push(square);
   });
   
-
+  // Listen for click on table cell
   $('td').click(function(){
-    if (game.over != true) {
+    if ($(this).html() === '' && game.over != true) {
       var cellId = $(this).data('id');
       game.squares[cellId].letter = game.turn;
       game.playRound();
