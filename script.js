@@ -43,8 +43,15 @@ Game.prototype.checkCols = function(){
 }
 
 Game.prototype.checkDiags = function(){
-  for(var i=0; i<3;i=i+2) {
-    
+  if (this.squares[0].letter != null &&
+      this.squares[0].letter === this.squares[4].letter &&
+      this.squares[4].letter === this.squares[8].letter) {
+    this.declare(this.squares[0].letter);
+  }
+  else if (this.squares[2].letter != null &&
+           this.squares[2].letter === this.squares[4].letter &&
+           this.squares[4].letter === this.squares[6].letter) {
+    this.declare(this.squares[2].letter);
   }
 }
 
