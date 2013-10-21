@@ -1,6 +1,7 @@
 function Game(){
   this.squares = [];
   this.turn = 'X'
+  this.over = false;
 }
 
 Game.prototype.fillBoard = function(){
@@ -21,6 +22,44 @@ Game.prototype.changeLetter = function(){
   }
 }
 
+Game.prototype.checkRows = function(){
+  for(var i=0; i<7; i=i+3) {
+    if (this.squares[i].letter != null &&
+        this.squares[i].letter === this.squares[i + 1].letter && 
+        this.squares[i + 1].letter === this.squares[i + 2].letter) {
+      console.log('win');
+      this.over = true;
+      this.declare(this.squares[i].letter);
+    }
+  }
+}
+
+Game.prototype.checkCols = function(){
+  for(var i=0; i<3; i++) {
+    if (this.squares[i].letter != null &&
+        this.squares[i].letter === this.squares[i + 3].letter && 
+        this.squares[i +3].letter === this.squares[i + 6].letter) {
+      console.log('win');
+      this.over = true;
+      this.declare(this.squares[i].letter);
+    }
+  }
+}
+
+// Game.prototype.checkDiags = function(){
+//   for(var i=0; i<3;i=i+2)
+// }
+
+Game.prototype.declare = function(winner){
+  if (winner === null) {
+    $('.winner p').html('Draw!');
+  }
+  else {
+    $('.winner p').html(winner + ' Wins!');
+  }
+}
+  
+
 function Square(id){
   this.id = id;
   this.letter;
@@ -29,27 +68,24 @@ function Square(id){
 $(document).ready(function(){
   var game = new Game();
   
+  // Initialize game's squares array with table elements
   $('td').each(function(){
     var square = new Square($(this).data('id'));
     game.squares.push(square);
   });
-
-  console.log(game);
   
-  var count = 0;
+
   $('td').click(function(){
-    // count += 1;
-    // if(count % 2 === 0) {
-    //   $(this).html('X');
-    // }
-    // else {
-    //   $(this).html('O');
-    // }
-    var cellId = $(this).data('id');
-    console.log(cellId);
-    game.squares[cellId].letter = game.turn;
-    console.log(game);
-    game.fillBoard();
-    game.changeLetter();
-  })
+    if (game.over != true) {
+      var cellId = $(this).data('id');
+      game.squares[cellId].letter = game.turn;
+      game.fillBoard();
+      game.changeLetter();
+      console.log(game);
+      // game.rowWin();
+      game.checkRows();
+      game.checkCols();
+    }
+  });  
+  
 });
