@@ -1,7 +1,19 @@
+
+
+
 function Game(){
   this.squares = [];
   this.turn = 'X'
   this.over = false;
+}
+
+Game.prototype.playRound = function(){
+  this.fillBoard();
+  this.changeLetter();
+  this.checkRows();
+  this.checkCols();
+  this.checkDiags();
+  this.checkFullness();
 }
 
 Game.prototype.fillBoard = function(){
@@ -101,13 +113,8 @@ $(document).ready(function(){
     if (game.over != true) {
       var cellId = $(this).data('id');
       game.squares[cellId].letter = game.turn;
-      game.fillBoard();
-      game.changeLetter();
+      game.playRound();
       console.log(game);
-      game.checkRows();
-      game.checkCols();
-      game.checkDiags();
-      game.checkFullness();
     }
   });  
   
