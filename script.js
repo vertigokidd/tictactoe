@@ -1,11 +1,35 @@
 function Computer(){
 }
 
-Computer.prototype.findEmpty = function(game){
-  for(var i=0;i<game.squares.length;i++) {
-    if(game.squares[i].letter === null) {
-      var ele = $("td[data-id='" + i +"']");
-      $(ele).trigger('click');
+// Computer.prototype.findEmpty = function(game){
+//   for(var i=0;i<game.squares.length;i++) {
+//     if(game.squares[i].letter === null) {
+//       var ele = $("td[data-id='" + i +"']");
+//       $(ele).trigger('click');
+//       return;
+//     }
+//   }
+// }
+
+Computer.prototype.fillSquare = function(i) {
+  var ele = $("td[data-id='" + i + "']");
+  $(ele).trigger('click');
+}
+
+Computer.prototype.checkCenter = function(game){
+  if (game.squares[4].letter === null) {
+    this.fillSquare(4);
+  }
+  else {
+    this.checkCorners(game);
+  }
+}
+
+Computer.prototype.checkCorners = function(game) {
+  var corners = [0,2,6,8];
+  for (i=0; i<corners.length; i++) {
+    if (game.squares[corners[i]].letter === null) {
+      this.fillSquare(corners[i]);
       return;
     }
   }
@@ -137,7 +161,7 @@ $(document).ready(function(){
     markBoard(this, game);
     count += 1;
     if (count % 2 === 0) {
-      computer.findEmpty(game);
+      computer.checkCenter(game);
       count += 2;
     }
   });  
