@@ -21,8 +21,10 @@ Computer.prototype.play = function(game, count){
 }
 
 Computer.prototype.fillSquare = function(i){
-  var ele = $("td[data-id='" + i + "']");
-  $(ele).trigger('click');
+  if (this.moved === false) {
+    var ele = $("td[data-id='" + i + "']");
+    $(ele).trigger('click');
+  }
 }
 
 Computer.prototype.analyzeCenter = function(game){
