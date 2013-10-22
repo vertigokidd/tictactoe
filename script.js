@@ -8,6 +8,7 @@ Computer.prototype.play = function(game, count){
   else {
     this.analyzeRows(game);
     this.analyzeCols(game);
+    this.analyzeDiags(game);
   }
 }
 
@@ -60,6 +61,19 @@ Computer.prototype.analyzeCols = function(game){
           this.fillSquare(j);
           return;
         }
+      }
+    }
+  }
+}
+
+Computer.prototype.analyzeDiags = function(game){
+  var letters = [game.squares[2].letter, game.squares[4].letter, game.squares[6].letter];
+  var xCount = letters.filter(function(value) { return value === 'X' }).length;
+  if (xCount === 2) {
+    for(var j=2; j<7; j=j+2) {
+      if (game.squares[j].letter === null) {
+        this.fillSquare(j);
+        return;
       }
     }
   }
