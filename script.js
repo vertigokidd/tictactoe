@@ -35,7 +35,18 @@ Computer.prototype.analyzeCorners = function(game){
 }
 
 Computer.prototype.analyzeRows = function(game){
-  
+  for(var i=0; i<7; i=i+3) {
+    var letters = [game.squares[i].letter, game.squares[i+1].letter, game.squares[i+2].letter];
+    var xCount = letters.filter(function(value) { return value === 'X' }).length;
+    if (xCount === 2) {
+      for(var j=i; j<i+3; j++) {
+        console.log(j);
+        if (game.squares[j].letter === null) {
+          this.fillSquare(j);
+        }
+      }
+    }
+  }
 }
 
 
