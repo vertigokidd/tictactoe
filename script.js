@@ -9,14 +9,15 @@ Computer.prototype.play = function(game, count){
   if (count === 2) {
     this.analyzeCenter(game);
   }
+  else if (count === 6) {
+    this.defendCorners(game);
+  }
   else {
     this.analyzeRows(game);
     this.analyzeCols(game);
     this.analyzeDiags(game);
-    if (this.moved === false) {
-      this.defend(game);
-    }
-  }
+    this.attack(game);
+  }  
 }
 
 Computer.prototype.fillSquare = function(i){
@@ -90,13 +91,26 @@ Computer.prototype.analyzeDiags = function(game){
   }
 }
 
-Computer.prototype.defend = function(game){
-  // for(var i=0; i<game.squares.length; i++) {
-  //   if (game.squares[i].letter === null) {
-  //     this.fillSquare(i);
-  //     return;
-  //   }
-  // }
+Computer.prototype.defendCorners = function(game){
+  var corners = [6, 8, 2, 0]
+  for (var i=0; i<corners.length; i++) {
+    if(game.squares[corners[i]].letter === null) {
+      this.fillSquare(corners[i])
+      this.moved = true;
+      return;
+    }
+  }
+  return;
+}
+
+Computer.prototype.attack = function(game) {
+  for (var i=0; i<game.squares.length; i++) {
+    if(game.squares[i].letter === null) {
+      this.fillSquare(i);
+      this.moved = true;
+      return;
+    }
+  }
 }
 
 
@@ -205,6 +219,8 @@ function Square(id){
 
 // Document load
 
+var count = 1;
+
 $(document).ready(function(){
   var game = new Game();
   var computer = new Computer();
@@ -215,7 +231,6 @@ $(document).ready(function(){
     game.squares.push(square);
   });
 
-  var count = 1;
 
   // Action for each move
   var markBoard = function(ele, game){
@@ -226,6 +241,7 @@ $(document).ready(function(){
       game.squares[cellId].letter = game.turn;
       game.playRound();
       count += 1;
+      console.log(count);
     }
   }
 
