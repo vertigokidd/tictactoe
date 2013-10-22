@@ -35,7 +35,7 @@ Computer.prototype.analyzeCorners = function(game){
 }
 
 Computer.prototype.analyzeRows = function(game){
-
+  
 }
 
 
