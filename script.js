@@ -81,6 +81,7 @@ Computer.prototype.analyzeDiags = function(game){
     for(var j=2; j<7; j=j+2) {
       if (game.squares[j].letter === null) {
         this.fillSquare(j);
+        this.moved = true;
         return;
       }
     }
