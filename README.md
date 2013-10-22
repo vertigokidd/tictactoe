@@ -2,7 +2,7 @@
 
 A basic tic-tac-toe game written in Javascript with an HTML-based interface.
 
-User always makes first move. But you'll never win.
+User always makes first move, but you'll never win. Never!
 
 ## Installation
 
