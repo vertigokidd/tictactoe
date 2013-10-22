@@ -1,3 +1,5 @@
+// Computer player logic
+
 function Computer(){
   this.moved = false;
 }
@@ -98,7 +100,7 @@ Computer.prototype.attack = function(game){
 }
 
 
-
+// Gameplay mechanics
 
 function Game(){
   this.squares = [];
@@ -193,10 +195,15 @@ Game.prototype.declare = function(winner){
 }
   
 
+// Square object
+
 function Square(id){
   this.id = id;
   this.letter = null;
 }
+
+
+// Document load
 
 $(document).ready(function(){
   var game = new Game();
