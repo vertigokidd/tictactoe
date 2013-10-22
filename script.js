@@ -221,7 +221,6 @@ $(document).ready(function(){
       var cellId = $(ele).data('id');
       game.squares[cellId].letter = game.turn;
       game.playRound();
-      console.log(game);
     }
   }
 
