@@ -215,21 +215,24 @@ $(document).ready(function(){
     game.squares.push(square);
   });
 
+  var count = 1;
+
   // Action for each move
   var markBoard = function(ele, game){
-    if ($(ele).html() === '' && game.over != true) {
+    if ($(ele).html() === '' &&
+        $(ele).html() != 'X' &&
+        $(ele).html() != 'O' && game.over != true) {
       var cellId = $(ele).data('id');
       game.squares[cellId].letter = game.turn;
       game.playRound();
+      count += 1;
     }
   }
 
-  var count = 1;
   
   // Listen for click on table cell
   $('td').click(function(){
     markBoard(this, game);
-    count += 1;
     if (count % 2 === 0) {
       computer.play(game, count);
       count += 2;
