@@ -9,13 +9,18 @@ Computer.prototype.play = function(game, count){
   if (count === 2) {
     this.analyzeCenter(game);
   }
-  else if (count === 6) {
-    this.defendCorners(game);
-  }
+  // else if (count === 6) {
+  //   this.analyzeRows(game);
+  //   this.analyzeCols(game);
+  //   this.analyzeDiags(game);
+  //   this.defendCorners(game);
+  // }
   else {
     this.analyzeRows(game);
     this.analyzeCols(game);
-    this.analyzeDiags(game);
+    this.analyzeLeftDiag(game);
+    this.analyzeRightDiag(game);
+    this.defendCorners(game);
     this.attack(game);
   }  
 }
@@ -32,20 +37,20 @@ Computer.prototype.analyzeCenter = function(game){
     this.fillSquare(4);
   }
   else {
-    this.analyzeCorners(game);
+    this.fillSquare(3);
   }
 }
 
-Computer.prototype.analyzeCorners = function(game){
-  var corners = [0,2,6,8];
-  for (i=0; i<corners.length; i++) {
-    if (game.squares[corners[i]].letter === null) {
-      this.fillSquare(corners[i]);
-      this.moved = true;
-      return;
-    }
-  }
-}
+// Computer.prototype.analyzeCorners = function(game){
+//   var corners = [0,2,6,8];
+//   for (i=0; i<corners.length; i++) {
+//     if (game.squares[corners[i]].letter === null) {
+//       this.fillSquare(corners[i]);
+//       this.moved = true;
+//       return;
+//     }
+//   }
+// }
 
 Computer.prototype.analyzeRows = function(game){
   for(var i=0; i<7; i=i+3) {
@@ -79,11 +84,25 @@ Computer.prototype.analyzeCols = function(game){
   }
 }
 
-Computer.prototype.analyzeDiags = function(game){
+Computer.prototype.analyzeRightDiag = function(game){
   var letters = [game.squares[2].letter, game.squares[4].letter, game.squares[6].letter];
   var xCount = letters.filter(function(value) { return value === 'X' }).length;
   if (xCount === 2) {
     for(var j=2; j<7; j=j+2) {
+      if (game.squares[j].letter === null) {
+        this.fillSquare(j);
+        this.moved = true;
+        return;
+      }
+    }
+  }
+}
+
+Computer.prototype.analyzeLeftDiag = function(game){
+  var letters = [game.squares[0].letter, game.squares[4].letter, game.squares[8].letter];
+  var xCount = letters.filter(function(value) { return value === 'X' }).length;
+  if (xCount === 2) {
+    for(var j=0; j<9; j=j+4) {
       if (game.squares[j].letter === null) {
         this.fillSquare(j);
         this.moved = true;
