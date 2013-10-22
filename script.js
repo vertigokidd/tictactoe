@@ -1,7 +1,9 @@
 function Computer(){
+  this.moved = false;
 }
 
 Computer.prototype.play = function(game, count){
+  this.moved = false;
   if (count === 2) {
     this.analyzeCenter(game);
   }
@@ -9,6 +11,9 @@ Computer.prototype.play = function(game, count){
     this.analyzeRows(game);
     this.analyzeCols(game);
     this.analyzeDiags(game);
+    if (this.moved === false) {
+      this.attack(game);
+    }
   }
 }
 
@@ -31,6 +36,7 @@ Computer.prototype.analyzeCorners = function(game){
   for (i=0; i<corners.length; i++) {
     if (game.squares[corners[i]].letter === null) {
       this.fillSquare(corners[i]);
+      this.moved = true;
       return;
     }
   }
@@ -44,6 +50,7 @@ Computer.prototype.analyzeRows = function(game){
       for(var j=i; j<i+3; j++) {
         if (game.squares[j].letter === null) {
           this.fillSquare(j);
+          this.moved = true;
           return;
         }
       }
@@ -59,6 +66,7 @@ Computer.prototype.analyzeCols = function(game){
       for(var j=i; j<i+7; j=j+3) {
         if (game.squares[j].letter === null) {
           this.fillSquare(j);
+          this.moved = true;
           return;
         }
       }
@@ -75,6 +83,15 @@ Computer.prototype.analyzeDiags = function(game){
         this.fillSquare(j);
         return;
       }
+    }
+  }
+}
+
+Computer.prototype.attack = function(game){
+  for(var i=0; i<game.squares.length; i++) {
+    if (game.squares[i].letter === null) {
+      this.fillSquare(i);
+      return;
     }
   }
 }
