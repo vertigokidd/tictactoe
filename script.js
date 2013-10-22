@@ -14,7 +14,7 @@ Computer.prototype.play = function(game, count){
     this.analyzeCols(game);
     this.analyzeDiags(game);
     if (this.moved === false) {
-      this.attack(game);
+      this.defend(game);
     }
   }
 }
@@ -90,13 +90,13 @@ Computer.prototype.analyzeDiags = function(game){
   }
 }
 
-Computer.prototype.attack = function(game){
-  for(var i=0; i<game.squares.length; i++) {
-    if (game.squares[i].letter === null) {
-      this.fillSquare(i);
-      return;
-    }
-  }
+Computer.prototype.defend = function(game){
+  // for(var i=0; i<game.squares.length; i++) {
+  //   if (game.squares[i].letter === null) {
+  //     this.fillSquare(i);
+  //     return;
+  //   }
+  // }
 }
 
 
