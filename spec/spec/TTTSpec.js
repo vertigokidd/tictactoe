@@ -120,6 +120,28 @@ describe("Game Col Checking", function() {
 
 });
 
+describe("Game Diag Checking", function() {
+
+  beforeEach(function() {
+    game.squares[0].letter = 'X';
+    game.squares[4].letter = 'X';
+    game.squares[8].letter = 'X';
+  });
+
+  it("should call declare if winning diagonal", function() {
+    spyOn(game, 'declare');
+    game.checkDiags();
+    expect(game.declare).toHaveBeenCalled();
+  });
+
+  it("should call declare with the winning token for column", function() {
+    spyOn(game, 'declare');
+    game.checkDiags();
+    expect(game.declare).toHaveBeenCalledWith('X');
+  });
+
+});
+
 
   // it("should be able to play a Song", function() {
   //   player.play(song);
