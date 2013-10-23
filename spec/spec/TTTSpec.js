@@ -13,10 +13,19 @@ describe("Game", function() {
     expect(typeof game.squares[0]).toEqual('object');
   });
 
+  it("should have function markBoard", function() {
+    expect(markBoard).toBeTruthy();
+  });
+
   it("should respond to click on td element", function() {
     $('td').first().trigger('click');
     expect(game.squares[0].letter).toEqual('X');
   });
+
+  it("should change letters between turns", function() {
+    game.changeLetter();
+    expect(game.turn).toEqual('O');
+  })
 
 });
 
