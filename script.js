@@ -15,7 +15,7 @@ Computer.prototype.play = function(game, count){
     this.analyzeRows(game);
     this.analyzeCols(game);
     this.defendCorners(game);
-    this.attack(game);
+    this.findEmpty(game);
   }  
 }
 
@@ -107,7 +107,7 @@ Computer.prototype.defendCorners = function(game){
   return;
 }
 
-Computer.prototype.attack = function(game) {
+Computer.prototype.findEmpty = function(game) {
   for (var i=0; i<game.squares.length; i++) {
     if(game.squares[i].letter === null) {
       this.fillSquare(i);
