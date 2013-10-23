@@ -157,6 +157,7 @@ describe("Computer", function() {
 
   beforeEach(function() {
     resetGame();
+    computer.moved = false;
   });
 
   it("should have an attribute called moved that is false", function() {
@@ -178,6 +179,15 @@ describe("Computer", function() {
     spyOn(computer, 'findEmpty');
     computer.play(game, 4);
     expect(computer.findEmpty).toHaveBeenCalled();
+  });
+
+  describe("find empty", function() {
+
+    it("should fill in the first empty space it finds", function() {
+      computer.findEmpty(game);
+      expect(game.squares[0].letter).toEqual('X');
+    })
+
   });
 
   describe("analyze center", function() {
