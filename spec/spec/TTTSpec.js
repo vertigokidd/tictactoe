@@ -174,11 +174,18 @@ describe("Computer", function() {
     expect(computer.analyzeCenter).toHaveBeenCalled();
   });
 
+  it("should call findEmpty when count is greater than 2", function() {
+    spyOn(computer, 'findEmpty');
+    computer.play(game, 4);
+    expect(computer.findEmpty).toHaveBeenCalled();
+  });
+
   describe("analyze center", function() {
 
-    it("should fill center square if it is empty", function() {
+    it("should call fillSquare with the right index when center is empty", function() {
+      spyOn(computer, 'fillSquare')
       computer.analyzeCenter(game);
-      expect(game.squares[4].letter).toEqual('X');
+      expect(computer.fillSquare).toHaveBeenCalledWith(4);
     });
 
     it("should fill a corner if center square is taken", function() {
