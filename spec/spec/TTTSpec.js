@@ -65,10 +65,15 @@ describe("Game", function() {
     expect(game.fillBoard).toHaveBeenCalled();
   });
 
+  it("should put a token in the square object when td is clicked", function() {
+    expect(game.squares[0].letter).toEqual('X');
+  })
+
   it("should put a token in a square when td is clicked", function() {
-
-
+    expect($('td').first().html()).toEqual('X');
   });
+
+
 
 });
 
