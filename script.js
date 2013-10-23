@@ -10,18 +10,20 @@ Computer.prototype.play = function(game, count){
     this.analyzeCenter(game);
   }
   else {
+    this.analyzeLeftDiag(game);
+    this.analyzeRightDiag(game);
     this.analyzeRows(game);
     this.analyzeCols(game);
-    this.analyzeDiags(game);
-    if (this.moved === false) {
-      this.defend(game);
-    }
-  }
+    this.defendCorners(game);
+    this.findEmpty(game);
+  }  
 }
 
 Computer.prototype.fillSquare = function(i){
-  var ele = $("td[data-id='" + i + "']");
-  $(ele).trigger('click');
+  if (this.moved === false) {
+    var ele = $("td[data-id='" + i + "']");
+    $(ele).trigger('click');
+  }
 }
 
 Computer.prototype.analyzeCenter = function(game){
@@ -29,18 +31,7 @@ Computer.prototype.analyzeCenter = function(game){
     this.fillSquare(4);
   }
   else {
-    this.analyzeCorners(game);
-  }
-}
-
-Computer.prototype.analyzeCorners = function(game){
-  var corners = [0,2,6,8];
-  for (i=0; i<corners.length; i++) {
-    if (game.squares[corners[i]].letter === null) {
-      this.fillSquare(corners[i]);
-      this.moved = true;
-      return;
-    }
+    this.fillSquare(0);
   }
 }
 
@@ -76,7 +67,7 @@ Computer.prototype.analyzeCols = function(game){
   }
 }
 
-Computer.prototype.analyzeDiags = function(game){
+Computer.prototype.analyzeRightDiag = function(game){
   var letters = [game.squares[2].letter, game.squares[4].letter, game.squares[6].letter];
   var xCount = letters.filter(function(value) { return value === 'X' }).length;
   if (xCount === 2) {
@@ -90,13 +81,40 @@ Computer.prototype.analyzeDiags = function(game){
   }
 }
 
-Computer.prototype.defend = function(game){
-  // for(var i=0; i<game.squares.length; i++) {
-  //   if (game.squares[i].letter === null) {
-  //     this.fillSquare(i);
-  //     return;
-  //   }
-  // }
+Computer.prototype.analyzeLeftDiag = function(game){
+  var letters = [game.squares[0].letter, game.squares[4].letter, game.squares[8].letter];
+  var xCount = letters.filter(function(value) { return value === 'X' }).length;
+  if (xCount === 2) {
+    for(var j=0; j<9; j=j+4) {
+      if (game.squares[j].letter === null) {
+        this.fillSquare(j);
+        this.moved = true;
+        return;
+      }
+    }
+  }
+}
+
+Computer.prototype.defendCorners = function(game){
+  var corners = [6, 8, 2, 0]
+  for (var i=0; i<corners.length; i++) {
+    if(game.squares[corners[i]].letter === null) {
+      this.fillSquare(corners[i])
+      this.moved = true;
+      return;
+    }
+  }
+  return;
+}
+
+Computer.prototype.findEmpty = function(game) {
+  for (var i=0; i<game.squares.length; i++) {
+    if(game.squares[i].letter === null) {
+      this.fillSquare(i);
+      this.moved = true;
+      return;
+    }
+  }
 }
 
 
@@ -205,6 +223,8 @@ function Square(id){
 
 // Document load
 
+var count = 1;
+
 $(document).ready(function(){
   var game = new Game();
   var computer = new Computer();
@@ -215,7 +235,6 @@ $(document).ready(function(){
     game.squares.push(square);
   });
 
-  var count = 1;
 
   // Action for each move
   var markBoard = function(ele, game){
