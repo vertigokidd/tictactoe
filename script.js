@@ -250,6 +250,7 @@ var markBoard = function(ele, game){
 }
 
 var resetGame = function(){
+  count = 1;
   game.over = false;
   game.turn = 'X'
   for(i=0;i<game.squares.length;i++) {

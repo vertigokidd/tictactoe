@@ -153,7 +153,7 @@ describe("Game Diag Checking", function() {
 
 });
 
-describe("Computer Logic", function() {
+describe("Computer", function() {
 
   beforeEach(function() {
     resetGame();
@@ -174,12 +174,30 @@ describe("Computer Logic", function() {
     expect(computer.analyzeCenter).toHaveBeenCalled();
   });
 
+  describe("analyze center", function() {
+
+    it("should fill center square if it is empty", function() {
+      computer.analyzeCenter(game);
+      expect(game.squares[4].letter).toEqual('X');
+    });
+
+    it("should fill a corner if center square is taken", function() {
+      $($('td')[4]).trigger('click');
+      expect($('td').first().html()).toEqual('O');
+    });
+
+  });
+
 });
 
 describe("Reset", function() {
 
   beforeEach(function() {
     resetGame();
+  });
+
+  it("should reset the play count to 1", function() {
+    expect(count).toEqual(1);
   });
   
   it("should reset game over status to false", function() {
