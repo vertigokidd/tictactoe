@@ -249,6 +249,15 @@ var markBoard = function(ele, game){
   }
 }
 
+var resetGame = function(){
+  game.over = false;
+  game.turn = 'X'
+  for(i=0;i<game.squares.length;i++) {
+    game.squares[i].letter = null;
+    $($('td')[i]).html('');
+  }
+};
+
 $(document).ready(function(){
 
   // Initialize game's squares array with table elements

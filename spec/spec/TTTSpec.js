@@ -155,6 +155,50 @@ describe("Game Diag Checking", function() {
 
 describe("Computer Logic", function() {
 
+  beforeEach(function() {
+    resetGame();
+  });
+
+  it("should have an attribute called moved that is false", function() {
+    expect(computer.moved).toEqual(false);
+  });
+
+  it("should click td with appropriate index when fillSquare is called", function() {
+    
+  });
+
+});
+
+describe("Reset", function() {
+
+  beforeEach(function() {
+    resetGame();
+  });
   
+  it("should reset game over status to false", function() {
+    expect(game.over).toEqual(false);
+  });
+
+  it("should reset all squares' letter values to null", function() {
+    var letters = [];
+    for(i=0;i<game.squares.length;i++) {
+      letters.push(game.squares[i].letter);
+    }
+    var letterValues = letters.filter(function(value) { return value === null }).length;
+    expect(letterValues).toEqual(9);
+  });
+
+  it("should set the current turn to 'X'", function() {
+    expect(game.turn).toEqual('X');
+  });
+
+  it("should clear the board's td cells", function() {
+    var tdEls = [];
+    $('td').each(function(i){
+      tdEls.push($(this).html());
+    });
+    var tdValues = tdEls.filter(function(value) { return value != '' }).length;
+    expect(tdValues).toEqual(0);
+  })
 
 });
