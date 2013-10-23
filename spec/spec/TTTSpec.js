@@ -14,10 +14,8 @@ describe("Game", function() {
   });
 
   it("should respond to click on td element", function() {
-    // spyOn(markBoard);
-    console.log(markBoard);
     $('td').first().trigger('click');
-    // expect(markBoard).toHaveBeenCalled();
+    expect(game.squares[0].letter).toEqual('X');
   });
 
 });
