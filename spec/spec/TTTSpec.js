@@ -90,6 +90,34 @@ describe("Game Row Checking", function() {
     expect(game.declare).toHaveBeenCalled();
   });
 
+  it("should call declare with the winning token for row", function() {
+    spyOn(game, 'declare');
+    game.checkRows();
+    expect(game.declare).toHaveBeenCalledWith('X');
+  });
+
+});
+
+describe("Game Col Checking", function() {
+
+  beforeEach(function() {
+    game.squares[1].letter = 'O';
+    game.squares[4].letter = 'O';
+    game.squares[7].letter = 'O';
+  });
+
+  it("should call declare if winning column", function() {
+    spyOn(game, 'declare');
+    game.checkCols();
+    expect(game.declare).toHaveBeenCalled();
+  });
+
+  it("should call declare with the winning token for column", function() {
+    spyOn(game, 'declare');
+    game.checkCols();
+    expect(game.declare).toHaveBeenCalledWith('O');
+  });
+
 });
 
 
