@@ -10,13 +10,21 @@ Computer.prototype.play = function(game, count){
     this.analyzeCenter(game);
   }
   else {
-    this.analyzeLeftDiag(game);
-    this.analyzeRightDiag(game);
-    this.analyzeRows(game);
-    this.analyzeCols(game);
+    this.attack(game, 'O')
+    this.analyzeLeftDiag(game, 'X');
+    this.analyzeRightDiag(game, 'X');
+    this.analyzeRows(game, 'X');
+    this.analyzeCols(game, 'X');
     this.defendCorners(game);
     this.findEmpty(game);
   }  
+}
+
+Computer.prototype.attack = function(game, token){
+  this.analyzeRows(game, 'O');
+  this.analyzeCols(game, 'O');
+  this.analyzeLeftDiag(game, 'O');
+  this.analyzeRightDiag(game, 'O');
 }
 
 Computer.prototype.fillSquare = function(i){
@@ -35,10 +43,10 @@ Computer.prototype.analyzeCenter = function(game){
   }
 }
 
-Computer.prototype.analyzeRows = function(game){
+Computer.prototype.analyzeRows = function(game, token){
   for(var i=0; i<7; i=i+3) {
     var letters = [game.squares[i].letter, game.squares[i+1].letter, game.squares[i+2].letter];
-    var xCount = letters.filter(function(value) { return value === 'X' }).length;
+    var xCount = letters.filter(function(value) { return value === token }).length;
     if (xCount === 2) {
       for(var j=i; j<i+3; j++) {
         if (game.squares[j].letter === null) {
@@ -51,10 +59,10 @@ Computer.prototype.analyzeRows = function(game){
   }
 }
 
-Computer.prototype.analyzeCols = function(game){
+Computer.prototype.analyzeCols = function(game, token){
   for(var i=0; i<3; i++) {
     var letters = [game.squares[i].letter, game.squares[i+3].letter, game.squares[i+6].letter];
-    var xCount = letters.filter(function(value) { return value === 'X' }).length;
+    var xCount = letters.filter(function(value) { return value === token }).length;
     if (xCount === 2) {
       for(var j=i; j<i+7; j=j+3) {
         if (game.squares[j].letter === null) {
@@ -67,9 +75,9 @@ Computer.prototype.analyzeCols = function(game){
   }
 }
 
-Computer.prototype.analyzeRightDiag = function(game){
+Computer.prototype.analyzeRightDiag = function(game, token){
   var letters = [game.squares[2].letter, game.squares[4].letter, game.squares[6].letter];
-  var xCount = letters.filter(function(value) { return value === 'X' }).length;
+  var xCount = letters.filter(function(value) { return value === token }).length;
   if (xCount === 2) {
     for(var j=2; j<7; j=j+2) {
       if (game.squares[j].letter === null) {
@@ -81,9 +89,9 @@ Computer.prototype.analyzeRightDiag = function(game){
   }
 }
 
-Computer.prototype.analyzeLeftDiag = function(game){
+Computer.prototype.analyzeLeftDiag = function(game, token){
   var letters = [game.squares[0].letter, game.squares[4].letter, game.squares[8].letter];
-  var xCount = letters.filter(function(value) { return value === 'X' }).length;
+  var xCount = letters.filter(function(value) { return value === token }).length;
   if (xCount === 2) {
     for(var j=0; j<9; j=j+4) {
       if (game.squares[j].letter === null) {
