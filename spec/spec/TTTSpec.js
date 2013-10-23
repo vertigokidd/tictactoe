@@ -59,6 +59,16 @@ describe("Game", function() {
     expect(game.turn).toEqual('X');
   })
 
+  it("should call fillBoard when playRound is called", function() {
+    spyOn(game, 'fillBoard');
+    markBoard($('td')[2], game);
+    expect(game.fillBoard).toHaveBeenCalled();
+  });
+
+  it("should put a token in a square when td is clicked", function() {
+
+
+  });
 
 });
 
