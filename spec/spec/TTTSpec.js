@@ -34,7 +34,6 @@ describe("Marking", function() {
 });
 
 
-
 describe("Game", function() {
 
   it("should create a new game instance on page load", function() {
@@ -74,6 +73,22 @@ describe("Game", function() {
   });
 
 
+
+});
+
+describe("Game Row Checking", function() {
+
+  beforeEach(function() {
+    game.squares[3].letter = 'X';
+    game.squares[4].letter = 'X';
+    game.squares[5].letter = 'X';
+  });
+
+  it("should call declare if winning row", function() {
+    spyOn(game, 'declare');
+    game.checkRows();
+    expect(game.declare).toHaveBeenCalled();
+  });
 
 });
 
