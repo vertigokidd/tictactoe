@@ -1,8 +1,6 @@
 # Tic-Tac-Toe
 
-A basic tic-tac-toe game written in Javascript with an HTML-based interface.
-
-User always makes first move, but you'll never win. Never!
+An unbeatable tic-tac-toe game written in Javascript with an HTML interface.
 
 ## Installation
 
