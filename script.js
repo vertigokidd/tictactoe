@@ -233,9 +233,11 @@ function Square(id){
 
 var count = 1;
 
+var game = new Game();
+var computer = new Computer();
+
 $(document).ready(function(){
-  var game = new Game();
-  var computer = new Computer();
+
   
   // Initialize game's squares array with table elements
   $('td').each(function(){
