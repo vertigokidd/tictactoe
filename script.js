@@ -236,28 +236,26 @@ var count = 1;
 var game = new Game();
 var computer = new Computer();
 
+
+// Action for each move
+var markBoard = function(ele, game){
+  if ($(ele).html() === '' &&
+      $(ele).html() != 'X' &&
+      $(ele).html() != 'O' && game.over != true) {
+    var cellId = $(ele).data('id');
+    game.squares[cellId].letter = game.turn;
+    game.playRound();
+    count += 1;
+  }
+}
+
 $(document).ready(function(){
 
-  
   // Initialize game's squares array with table elements
   $('td').each(function(){
     var square = new Square($(this).data('id'));
     game.squares.push(square);
   });
-
-
-  // Action for each move
-  var markBoard = function(ele, game){
-    if ($(ele).html() === '' &&
-        $(ele).html() != 'X' &&
-        $(ele).html() != 'O' && game.over != true) {
-      var cellId = $(ele).data('id');
-      game.squares[cellId].letter = game.turn;
-      game.playRound();
-      count += 1;
-    }
-  }
-
   
   // Listen for click on table cell
   $('td').click(function(){

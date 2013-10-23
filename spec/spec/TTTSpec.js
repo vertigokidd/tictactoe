@@ -9,6 +9,20 @@ describe("Game", function() {
     expect(game.squares.length).toEqual(9);
   });
 
+  it("should contain an array of square objects", function() {
+    expect(typeof game.squares[0]).toEqual('object');
+  });
+
+  it("should respond to click on td element", function() {
+    // spyOn(markBoard);
+    console.log(markBoard);
+    $('td').first().trigger('click');
+    // expect(markBoard).toHaveBeenCalled();
+  });
+
+});
+
+
   // it("should be able to play a Song", function() {
   //   player.play(song);
   //   expect(player.currentlyPlayingSong).toEqual(song);
@@ -57,4 +71,4 @@ describe("Game", function() {
   //     }).toThrow("song is already playing");
   //   });
   // });
-});
+// });
