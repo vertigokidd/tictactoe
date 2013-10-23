@@ -164,7 +164,14 @@ describe("Computer Logic", function() {
   });
 
   it("should click td with appropriate index when fillSquare is called", function() {
-    
+    computer.fillSquare(0);
+    expect($('td').first().html()).toEqual('X');
+  });
+
+  it("should call analyzeCenter when count is 2", function() {
+    spyOn(computer, 'analyzeCenter');
+    computer.play(game, 2);
+    expect(computer.analyzeCenter).toHaveBeenCalled();
   });
 
 });
