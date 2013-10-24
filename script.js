@@ -253,6 +253,7 @@ var resetGame = function(){
   count = 1;
   game.over = false;
   game.turn = 'X'
+  $('.winner p').html('');
   for(i=0;i<game.squares.length;i++) {
     game.squares[i].letter = null;
     $($('td')[i]).html('');
@@ -274,6 +275,10 @@ $(document).ready(function(){
       computer.play(game, count);
       count += 2;
     }
-  });  
+  });
+
+  $('#newGame').click(function(){
+    resetGame();
+  })
   
 });

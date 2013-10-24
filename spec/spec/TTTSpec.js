@@ -293,4 +293,8 @@ describe("Reset", function() {
     expect(tdValues).toEqual(0);
   })
 
+  it("should clear message from screen", function() {
+    expect($('.winner p').html()).toEqual('')
+  });
+
 });
