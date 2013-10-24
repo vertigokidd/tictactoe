@@ -233,29 +233,40 @@ function Square(id){
 
 var count = 1;
 
+var game = new Game();
+var computer = new Computer();
+
+
+// Action for each move
+var markBoard = function(ele, game){
+  if ($(ele).html() === '' &&
+      $(ele).html() != 'X' &&
+      $(ele).html() != 'O' && game.over != true) {
+    var cellId = $(ele).data('id');
+    game.squares[cellId].letter = game.turn;
+    game.playRound();
+    count += 1;
+  }
+}
+
+var resetGame = function(){
+  count = 1;
+  game.over = false;
+  game.turn = 'X'
+  $('.winner p').html('');
+  for(i=0;i<game.squares.length;i++) {
+    game.squares[i].letter = null;
+    $($('td')[i]).html('');
+  }
+};
+
 $(document).ready(function(){
-  var game = new Game();
-  var computer = new Computer();
-  
+
   // Initialize game's squares array with table elements
   $('td').each(function(){
     var square = new Square($(this).data('id'));
     game.squares.push(square);
   });
-
-
-  // Action for each move
-  var markBoard = function(ele, game){
-    if ($(ele).html() === '' &&
-        $(ele).html() != 'X' &&
-        $(ele).html() != 'O' && game.over != true) {
-      var cellId = $(ele).data('id');
-      game.squares[cellId].letter = game.turn;
-      game.playRound();
-      count += 1;
-    }
-  }
-
   
   // Listen for click on table cell
   $('td').click(function(){
@@ -264,6 +275,10 @@ $(document).ready(function(){
       computer.play(game, count);
       count += 2;
     }
-  });  
+  });
+
+  $('#newGame').click(function(){
+    resetGame();
+  })
   
 });
