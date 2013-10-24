@@ -175,17 +175,13 @@ describe("Computer", function() {
     expect(computer.analyzeCenter).toHaveBeenCalled();
   });
 
-  it("should call findEmpty when count is greater than 2", function() {
-    spyOn(computer, 'findEmpty');
-    computer.play(game, 4);
-    expect(computer.findEmpty).toHaveBeenCalled();
-  });
+  describe("find best", function() {
 
-  describe("find empty", function() {
-
-    it("should fill in the first empty space it finds", function() {
-      computer.findEmpty(game);
-      expect(game.squares[0].letter).toEqual('X');
+    it("should fill in the best space", function() {
+      computer.findBest(game);
+      game.squares[7].letter = 'X';
+      game.squares[4].letter = 'X';
+      expect(game.squares[1].letter).toEqual('X');
     })
 
   });
