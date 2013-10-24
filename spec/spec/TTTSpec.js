@@ -205,6 +205,26 @@ describe("Computer", function() {
 
   });
 
+  describe("analyze diagonal", function() {
+
+    it("should call fillSquare with the right index when opponent can win left diag", function() {
+      spyOn(computer, 'fillSquare');
+      game.squares[0].letter = 'X';
+      game.squares[4].letter = 'X';
+      computer.analyzeLeftDiag(game, 'X');
+      expect(computer.fillSquare).toHaveBeenCalledWith(8);
+    });
+
+    it("should call fillSquare with the right index when opponent can win right diag", function() {
+      spyOn(computer, 'fillSquare');
+      game.squares[2].letter = 'X';
+      game.squares[4].letter = 'X';
+      computer.analyzeRightDiag(game, 'X');
+      expect(computer.fillSquare).toHaveBeenCalledWith(6);
+    });
+
+  });
+
 });
 
 describe("Reset", function() {
