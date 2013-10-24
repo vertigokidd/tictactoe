@@ -15,8 +15,8 @@ Computer.prototype.play = function(game, count){
     this.analyzeRightDiag(game, 'X');
     this.analyzeRows(game, 'X');
     this.analyzeCols(game, 'X');
-    // this.defendCorners(game);
     this.findEmpty(game);
+    this.defendCorners(game);
   }  
 }
 
@@ -103,17 +103,17 @@ Computer.prototype.analyzeLeftDiag = function(game, token){
   }
 }
 
-// Computer.prototype.defendCorners = function(game){
-//   var corners = [6, 8, 2, 0]
-//   for (var i=0; i<corners.length; i++) {
-//     if(game.squares[corners[i]].letter === null) {
-//       this.fillSquare(corners[i])
-//       this.moved = true;
-//       return;
-//     }
-//   }
-//   return;
-// }
+Computer.prototype.defendCorners = function(game){
+  var corners = [6, 8, 2, 0]
+  for (var i=0; i<corners.length; i++) {
+    if(game.squares[corners[i]].letter === null) {
+      this.fillSquare(corners[i])
+      this.moved = true;
+      return;
+    }
+  }
+  return;
+}
 
 Computer.prototype.findEmpty = function(game) {  
   for (var i=1; i<game.squares.length; i=i+2) {
