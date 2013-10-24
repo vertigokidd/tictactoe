@@ -85,70 +85,70 @@ describe("Game", function() {
     expect(game.over).toEqual(true);
   });
 
-});
+  describe("Row Checking", function() {
 
-describe("Game Row Checking", function() {
+    beforeEach(function() {
+      game.squares[3].letter = 'X';
+      game.squares[4].letter = 'X';
+      game.squares[5].letter = 'X';
+    });
 
-  beforeEach(function() {
-    game.squares[3].letter = 'X';
-    game.squares[4].letter = 'X';
-    game.squares[5].letter = 'X';
+    it("should call declare if winning row", function() {
+      spyOn(game, 'declare');
+      game.checkRows();
+      expect(game.declare).toHaveBeenCalled();
+    });
+
+    it("should call declare with the winning token for row", function() {
+      spyOn(game, 'declare');
+      game.checkRows();
+      expect(game.declare).toHaveBeenCalledWith('X');
+    });
+
   });
 
-  it("should call declare if winning row", function() {
-    spyOn(game, 'declare');
-    game.checkRows();
-    expect(game.declare).toHaveBeenCalled();
+  describe("Col Checking", function() {
+
+    beforeEach(function() {
+      game.squares[1].letter = 'O';
+      game.squares[4].letter = 'O';
+      game.squares[7].letter = 'O';
+    });
+
+    it("should call declare if winning column", function() {
+      spyOn(game, 'declare');
+      game.checkCols();
+      expect(game.declare).toHaveBeenCalled();
+    });
+
+    it("should call declare with the winning token for column", function() {
+      spyOn(game, 'declare');
+      game.checkCols();
+      expect(game.declare).toHaveBeenCalledWith('O');
+    });
+
   });
 
-  it("should call declare with the winning token for row", function() {
-    spyOn(game, 'declare');
-    game.checkRows();
-    expect(game.declare).toHaveBeenCalledWith('X');
-  });
+  describe("Diag Checking", function() {
 
-});
+    beforeEach(function() {
+      game.squares[0].letter = 'X';
+      game.squares[4].letter = 'X';
+      game.squares[8].letter = 'X';
+    });
 
-describe("Game Col Checking", function() {
+    it("should call declare if winning diagonal", function() {
+      spyOn(game, 'declare');
+      game.checkDiags();
+      expect(game.declare).toHaveBeenCalled();
+    });
 
-  beforeEach(function() {
-    game.squares[1].letter = 'O';
-    game.squares[4].letter = 'O';
-    game.squares[7].letter = 'O';
-  });
+    it("should call declare with the winning token for column", function() {
+      spyOn(game, 'declare');
+      game.checkDiags();
+      expect(game.declare).toHaveBeenCalledWith('X');
+    });
 
-  it("should call declare if winning column", function() {
-    spyOn(game, 'declare');
-    game.checkCols();
-    expect(game.declare).toHaveBeenCalled();
-  });
-
-  it("should call declare with the winning token for column", function() {
-    spyOn(game, 'declare');
-    game.checkCols();
-    expect(game.declare).toHaveBeenCalledWith('O');
-  });
-
-});
-
-describe("Game Diag Checking", function() {
-
-  beforeEach(function() {
-    game.squares[0].letter = 'X';
-    game.squares[4].letter = 'X';
-    game.squares[8].letter = 'X';
-  });
-
-  it("should call declare if winning diagonal", function() {
-    spyOn(game, 'declare');
-    game.checkDiags();
-    expect(game.declare).toHaveBeenCalled();
-  });
-
-  it("should call declare with the winning token for column", function() {
-    spyOn(game, 'declare');
-    game.checkDiags();
-    expect(game.declare).toHaveBeenCalledWith('X');
   });
 
 });
