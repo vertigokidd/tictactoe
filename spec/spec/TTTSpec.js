@@ -235,6 +235,26 @@ describe("Computer", function() {
     });
   });
 
+  describe("analyze column", function() {
+    it("should call fillSquare with the right index when opponent can win a column", function() {
+      spyOn(computer, 'fillSquare');
+      game.squares[2].letter = 'X';
+      game.squares[8].letter = 'X';
+      computer.analyzeCols(game, 'X');
+      expect(computer.fillSquare).toHaveBeenCalledWith(5);
+    });
+  });
+
+  describe("attack", function() {
+    it("should call fillSquare with the right index when computer can win", function() {
+      spyOn(computer, 'fillSquare');
+      game.squares[0].letter = 'O';
+      game.squares[1].letter = 'O';
+      computer.attack(game, 'O');
+      expect(computer.fillSquare).toHaveBeenCalledWith(2);
+    });
+  });
+
 });
 
 describe("Reset", function() {
