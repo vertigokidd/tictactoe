@@ -225,6 +225,16 @@ describe("Computer", function() {
 
   });
 
+  describe("analyze row", function() {
+    it("should call fillSquare with the right index when opponent can win a row", function() {
+      spyOn(computer, 'fillSquare');
+      game.squares[6].letter = 'X';
+      game.squares[8].letter = 'X';
+      computer.analyzeRows(game, 'X');
+      expect(computer.fillSquare).toHaveBeenCalledWith(7);
+    });
+  });
+
 });
 
 describe("Reset", function() {
