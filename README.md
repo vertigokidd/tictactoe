@@ -2,8 +2,6 @@
 
 An unbeatable tic-tac-toe game written in Javascript with an HTML interface.
 
-User gets first move -- never wins.
-
 ## Installation
 
 Clone the repo to your local disk and then open the `index.html` file in your browser.
