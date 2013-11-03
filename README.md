@@ -1,6 +1,6 @@
 # Tic-Tac-Toe
 
-An unbeatable tic-tac-toe game written in Javascript with an HTML interface.
+A tic-tac-toe game written in Javascript with an HTML interface.
 
 ## Installation
 
